@@ -36,8 +36,30 @@ function newMove(e){
     currentPlayer.innerHTML = `JOGADOR DA VEZ: ${player}`;
 }
 
+
+//pega o modal e seus elementos internos
+const modal = document.querySelector("#gameModal");
+const modalMessage = document.querySelector(".modalMessage");
+const closeBtn = document.querySelector(".closeBtn");
+
+//funcao pra abrir o modal e mostrar a mensagem
+function abrirModal(mensagem){
+    modalMessage.textContent = mensagem;
+    modal.showModal();
+}
+
+//botao pra fechar o modal
+closeBtn.addEventListener("click", () => {
+    modal.close();
+    init();
+});
+
+
+
+
 function check(){
     const playerLastMove = player === "X" ? "O" : "X";
+    
 
     const items = selected
     .map((item, i) => [item,i])
@@ -46,15 +68,13 @@ function check(){
         
     for (const pos of positions){
         if (pos.every((item) => items.includes(item))){
-            alert(`O JOGADOR ${playerLastMove} VENCEU!`);
-            init();
+            abrirModal(`Jogador ${playerLastMove} venceu!`)
             return;
         }    
     }
 
     if (selected.filter((item) => item).length === 9){
-        alert("DEU EMPATE!");
-        init();
+        abrirModal(`Deu empate!`)
         return;
     }
 }
