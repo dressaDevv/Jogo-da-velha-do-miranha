@@ -24,7 +24,11 @@ init();
 
 function newMove(e){
     const index = Number(e.target.getAttribute("data-i"));
-    e.target.innerHTML = player;
+    if (player === "X"){
+        e.target.innerHTML = `<img src="img/aranhaX.png" alt="jogador X" width="85" height="85" ></img>` ;
+    }
+    else
+        e.target.innerHTML = player
     e.target.removeEventListener("click",newMove);
     selected[index] = player;
 
@@ -53,9 +57,6 @@ closeBtn.addEventListener("click", () => {
     modal.close();
     init();
 });
-
-
-
 
 function check(){
     const playerLastMove = player === "X" ? "O" : "X";
